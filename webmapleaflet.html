@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Webmap Leaflet</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+    <style>
+        #map{
+            width: 560px;
+            height: 480px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        var map=L.map("map").setView([-7.74505,110.36709],13);
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom: 19,attribution:"© OpenStreetMap"}).addTo(map);
+        var marker=L.marker([-7.74505,110.36709]).bindPopup("aku disini").addTo(map);
+        var circle=L.circle([-7.74505,110.36709],{
+            color:"red",
+            fillColor:"#fo3",
+            fillOpacity:0.5,
+            radius:700
+        }).addTo(map);
+        var poligon=L.polygon([
+            [-7.76066,110.35097],
+            [-7.76066,110.37777],
+            [-7.73718,110.37777],
+            [-7.73718,110.35097],
+        ]).addTo(map);
+        function onMapClick(e){
+            L.popup()
+            .setLatLng(e.latlng)
+            .setContent("Koordinat disini"+e.latlng.toString())
+            .openOn(map);
+        }
+        map.on("click", onMapClick);
+        var markerl=L.icon({
+            iconUrl:"./ikon/mark.png",
+            iconSize:[50,60],
+        });
+        L.marker([-7.74841,110.38873],{icon:markerl}).bindPopup("<b>Toko Amanah</b><br>Toko perlengkapan perkantoran<br>Jalan Karanggayam no 45 Kentungan").addTo(map);
+    </script>
+</body>
+</html>
